@@ -11,6 +11,7 @@ using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
+using std::stoi;
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::OperatingSystem() {
@@ -226,7 +227,12 @@ string LinuxParser::Uid(int pid) {
 string LinuxParser::User(int pid) {
   std::ifstream ifs(kPasswordPath);
   string line;
-  int uid = std::stoi(Uid(pid));
+  string uid_str = Uid(pid);
+  int uid;
+  if (uid_str != "")
+    uid = std::stoi(uid_str);
+  else
+    return string();
   while (getline(ifs, line)) {
     if (line.find(":" + to_string(uid) + ":") != string::npos) {
       string user = line.substr(0, line.find(":"));
