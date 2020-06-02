@@ -27,6 +27,7 @@ vector<Process>& System::Processes() {
     Process process(pid, LinuxParser::Ram(pid));
     processes_.push_back(process);
   }
+  std::sort(processes_.begin(), processes_.end());
   return processes_;
 }
 
