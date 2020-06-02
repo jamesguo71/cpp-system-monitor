@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 #include "linux_parser.h"
 
@@ -230,8 +231,8 @@ string LinuxParser::User(int pid) {
       string user = line.substr(0, line.find(":"));
       return user;
     }
-    return string();
   }
+  return string();
 }
 
 // TODO: Read and return the uptime of a process
