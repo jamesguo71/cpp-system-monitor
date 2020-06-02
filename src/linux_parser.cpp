@@ -120,7 +120,7 @@ long LinuxParser::ActiveJiffies() {
   vector<string> cpu_info_str = CpuUtilization();
   vector<int> cpu_info(cpu_info_str.size());
   std::transform(cpu_info_str.begin(), cpu_info_str.end(),
-                 cpu_info, [](const string &s) {return std::stoi(s);});
+                 cpu_info.begin(), [](const string &s) {return std::stoi(s);});
   int user_time = cpu_info[CPUStates::kUser_] - cpu_info[CPUStates::kGuest_];
   int nice_time = cpu_info[CPUStates::kNice_] - cpu_info[CPUStates::kGuestNice_];
  //int idle_all_time = cpu_info[CPUStates::kIdle_] + cpu_info[CPUStates::kIOwait_];
