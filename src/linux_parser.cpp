@@ -84,7 +84,7 @@ float LinuxParser::MemoryUtilization() {
   float Cached;
   ifs >> key >> Cached >> kB;
   float non_cache_buffer_memory = MemTotal - (MemFree + Buffers + Cached);
-  return non_cache_buffer_memory;
+  return non_cache_buffer_memory / MemTotal;
 }
 
 // TODO: Read and return the system uptime
