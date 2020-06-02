@@ -157,8 +157,8 @@ int LinuxParser::TotalProcesses() {
   string line;
   while (getline(ifs, line)) {
     if (line.find("processes") != string::npos) {
-      int running = stoi(line.substr(line.find(" ") + 1, line.length()));
-      return running;
+      int total = stoi(line.substr(line.find(" ") + 1, line.length()));
+      return total;
     }
   }
   return 0;
@@ -226,8 +226,9 @@ string LinuxParser::Uid(int pid) {
 string LinuxParser::User(int pid) {
   std::ifstream ifs(kPasswordPath);
   string line;
+  int uid = std::stoi(Uid(pid));
   while (getline(ifs, line)) {
-    if (line.find(":" + to_string(pid) + ":") != string::npos) {
+    if (line.find(":" + to_string(uid) + ":") != string::npos) {
       string user = line.substr(0, line.find(":"));
       return user;
     }
