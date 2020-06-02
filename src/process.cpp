@@ -18,7 +18,7 @@ int Process::Pid() { return pid_; }
 float Process::CpuUtilization() {
   long total_time = LinuxParser::ActiveJiffies(pid_);
   long up_time = LinuxParser::UpTime(pid_);
-  float cpu_usage = 100 * ((float) total_time / sysconf(_SC_CLK_TCK)) / up_time;
+  float cpu_usage = ((float) total_time / sysconf(_SC_CLK_TCK)) / up_time;
   return cpu_usage;
 }
 
