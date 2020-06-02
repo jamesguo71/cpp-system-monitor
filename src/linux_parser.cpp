@@ -155,7 +155,7 @@ int LinuxParser::TotalProcesses() {
   std::ifstream ifs(kStatFilename);
   string line;
   while (getline(ifs, line)) {
-    if (line.find("processes") != -1) {
+    if (line.find("processes") != string::npos) {
       int running = stoi(line.substr(line.find(" ") + 1, line.length()));
       return running;
     }
@@ -168,7 +168,7 @@ int LinuxParser::RunningProcesses() {
   std::ifstream ifs(kStatFilename);
   string line;
   while (getline(ifs, line)) {
-    if (line.find("procs_running") != -1) {
+    if (line.find("procs_running") != string::npos) {
       int running = stoi(line.substr(line.find(" ") + 1, line.length()));
       return running;
     }
@@ -191,7 +191,7 @@ string LinuxParser::Ram(int pid) {
   std::ifstream ifs(kProcDirectory + to_string(pid) + kStatusFilename);
   string line;
   while (getline(ifs, line)) {
-    if (line.find("VmSize:") != -1) {
+    if (line.find("VmSize:") != string::npos) {
       std::istringstream iss(line);
       string key_name, ram_size;
       iss >> key_name >> ram_size;
@@ -210,7 +210,7 @@ string LinuxParser::Uid(int pid) {
   std::ifstream ifs(kProcDirectory + std::to_string(pid) + kStatusFilename);
   string line;
   while (getline(ifs, line)) {
-    if (line.find("Uid") != -1) {
+    if (line.find("Uid") != string::npos) {
       std::istringstream iss(line);
       string key, uid;
       iss >> key >> uid;
@@ -226,7 +226,7 @@ string LinuxParser::User(int pid) {
   std::ifstream ifs(kPasswordPath);
   string line;
   while (getline(ifs, line)) {
-    if (line.find(":" + to_string(pid) + ":") != -1) {
+    if (line.find(":" + to_string(pid) + ":") != string::npos) {
       string user = line.substr(0, line.find(":"));
       return user;
     }
